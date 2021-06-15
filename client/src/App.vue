@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" v-if="this.$store.state.isLoggedIn">
       <!--Navbar-->
       <div class="nav-left">
         <img
@@ -10,7 +10,7 @@
         <h1>Animal Lover</h1>
       </div>
       <div class="nav-center">
-        <a href="#">My Favorites</a>
+        <router-link href="#">My Favorites</router-link>
       </div>
       <div class="nav-right">
         <button>Logout</button>
