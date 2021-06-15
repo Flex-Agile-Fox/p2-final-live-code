@@ -3,7 +3,11 @@
     <Navbar></Navbar>
 
     <div class="home-container">
-      <ListAnimals></ListAnimals>
+      <ListAnimals
+        v-for="animal in animals"
+        :key="animal.id"
+        :animal="animal"
+      ></ListAnimals>
     </div>
   </div>
 </template>
@@ -17,6 +21,14 @@ export default {
   components: {
     Navbar,
     ListAnimals
+  },
+  computed: {
+    animals () {
+      return this.$store.state.animals
+    }
+  },
+  created () {
+    this.$store.dispatch('getAnimals')
   }
 }
 </script>

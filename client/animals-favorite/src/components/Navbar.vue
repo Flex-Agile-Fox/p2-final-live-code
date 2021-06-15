@@ -8,17 +8,23 @@
         <h1>Animal Lover</h1>
       </div>
       <div class="nav-center">
-        <a href="#">My Favorites</a>
+        <!-- <a href="#">My Favorites</a> -->
+        <router-link to="/favorite">My Favorites</router-link>
       </div>
       <div class="nav-right">
-        <button>Logout</button>
+        <button v-on:click="logout">Logout</button>
       </div>
     </nav>
 </template>
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+    }
+  }
 }
 </script>
 
