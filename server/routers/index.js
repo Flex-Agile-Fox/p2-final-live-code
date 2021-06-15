@@ -17,11 +17,12 @@ router.post("/register", (req, res) => {
 
 router.post("/login", (req, res) => {
 	const { email, password } = req.body;
+	// console.log(email, password);
 	User.findOne({ where: { email } })
 		.then((user) => {
-			if (!user) req.status(404).json("Invalid email or password");
-			const compare = bcrypt.compare(password, user.password);
-			if (!compare) req.status(404).json("Invalid email or password");
+			if (!user) res.status(404).json("Invalid email or password");
+			const compare = bcrypt.compare(String(password), user.password);
+			if (!compare) res.status(404).json("Invalid email or password");
 			const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET);
 			res.status(200).json({ id: user.id, email: user.email, token });
 		})
@@ -65,10 +66,37 @@ router.post("/favorites/:animalId", authentication, (req, res) => {
 router.get("/favorites", authentication, (req, res) => {
 	Favorite.findAll({ include: Animal, where: { userId: req.user.id } })
 		.then((favs) => {
-			favs.map((fav) => {
-				return {};
+			favs = favs.map((fav) => {
+				return {
+					id: fav.id,
+					userId: fav.userId,
+					animalId: fav.animalId,
+					animal: {
+						id: fav.Animal.id,
+						name: fav.Animal.name,
+						imageUrl: fav.Animal.imageUrl,
+						description: fav.Animal.description,
+					},
+				};
 			});
 			res.status(200).json({ favorites: favs });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json("Internal server error");
+		});
+});
+
+router.delete("/favorites/:id", authentication, (req, res) => {
+	Favorite.findByPk(req.params.id)
+		.then((fav) => {
+			if (!fav) res.status(404).json("Favorite not found");
+			if (fav.userId !== req.user.id)
+				res.status(404).json("Favorite not found");
+			return fav.destroy();
+		})
+		.then((_) => {
+			res.status(200).json({ message: "Successfully delete favorite animal" });
 		})
 		.catch((err) => {
 			console.log(err);
