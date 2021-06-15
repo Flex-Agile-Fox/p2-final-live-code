@@ -1,44 +1,17 @@
 <template>
   <div class="home-container">
-      <div class="card">
+      <div v-for="animal in animals" :key="animal.id" class="card">
         <div class="card-image">
           <img
-            src="https://a-z-animals.com/media/animals/images/470x370/red_panda5.jpg"
-            alt="card image"
+            :src="animal.imageUrl"
+            :alt="animal.name"
           />
         </div>
         <div class="card-body">
-          <h3>Red Panda</h3>
-          <p>There are less than 3,000 left in the wild!</p>
+          <h3>{{ animal.name }}</h3>
+          <p>{{ animal.description }}</p>
         </div>
-        <button>Add To Favorites</button>
-      </div>
-      <div class="card">
-        <div class="card-image">
-          <img
-            src="https://a-z-animals.com/media/animals/images/470x370/koala9.jpg"
-            alt="card image"
-          />
-        </div>
-        <div class="card-body">
-          <h3>Koala</h3>
-          <p>Spends up to 80% of the time sleeping or resting!</p>
-        </div>
-        <button>Add To Favorites</button>
-      </div>
-
-      <div class="card">
-        <div class="card-image">
-          <img
-            src="https://a-z-animals.com/media/animals/images/470x370/arctic_fox_11.jpg"
-            alt="card image"
-          />
-        </div>
-        <div class="card-body">
-          <h3>Artic Fox</h3>
-          <p>Extremely thick winter fur!</p>
-        </div>
-        <button>Add To Favorites</button>
+        <button @click.prevent="addFav(animal.id)">Add To Favorites</button>
       </div>
     </div>
 
@@ -47,7 +20,12 @@
 <script>
 export default {
   name: 'AnimalCard',
-  props: ['animals']
+  props: ['animals'],
+  methods: {
+    addFav (animalId) {
+      this.$store.dispatch('addFavourite', animalId)
+    }
+  }
 }
 </script>
 

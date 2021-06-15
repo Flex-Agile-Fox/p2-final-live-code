@@ -15,8 +15,9 @@ class FavouriteController {
   static add (req, res) {
     const fav = {
       userId: req.userId,
-      animalId: req.body.animalId
+      animalId: req.params.animalId
     }
+    console.log(fav)
     Favourite.create(fav)
       .then((favourite) => {
         res.status(201).json({favourite: favourite})
