@@ -27,7 +27,13 @@ export default new Vuex.Store({
 		isLoggedIn(context) {
 			if (localStorage.getItem("access_token")) {
 				context.commit("SET_ISLOGGEDIN", true);
+			} else if (!localStorage.getItem("access_token")) {
+				context.commit("SET_ISLOGGEDIN", false);
 			}
+		},
+		logout(context) {
+			localStorage.removeItem("access_token");
+			context.dispatch("isLoggedIn");
 		},
 		login(context, { email, password }) {
 			axios({
@@ -95,6 +101,23 @@ export default new Vuex.Store({
 				.then((data) => {
 					console.log(data);
 					context.commit("SET_FAVORITES", data.data.favorites);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
+		deleteFavorite(context, payload) {
+			console.log(payload);
+			axios({
+				method: "DELETE",
+				url: "/favorites/" + payload,
+				headers: {
+					"Content-Type": "application/json",
+					access_token: localStorage.getItem("access_token"),
+				},
+			})
+				.then(() => {
+					context.dispatch("getFavorites");
 				})
 				.catch((err) => {
 					console.log(err);

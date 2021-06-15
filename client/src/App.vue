@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav" v-if="this.$store.state.isLoggedIn">
+    <nav v-if="this.$store.state.isLoggedIn">
       <!--Navbar-->
       <div class="nav-left">
         <img
@@ -16,9 +16,17 @@
       <div class="nav-right">
         <button>Logout</button>
       </div>
-    </div>
+    </nav>
     <router-view />
   </div>
 </template>
+<script>
+export default {
+  mounted() {
+    this.$store.dispatch("isLoggedIn");
+  },
+};
+</script>
+
 
 <style></style>

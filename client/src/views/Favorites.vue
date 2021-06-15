@@ -5,7 +5,11 @@
       <h1>My Favorites Animals</h1>
     </div>
     <div class="favorite-container">
-      <FavAnimal></FavAnimal>
+      <FavAnimal
+        v-for="fav in this.$store.state.favorites"
+        :key="fav.id"
+        :fav="fav"
+      ></FavAnimal>
     </div>
   </div>
 </template>
@@ -14,9 +18,12 @@
 import FavAnimal from "../components/FavAnimal.vue";
 
 export default {
-  name: "Home",
+  name: "Favorites",
   components: {
     FavAnimal,
+  },
+  mounted() {
+    this.$store.dispatch("getFavorites");
   },
 };
 </script>
