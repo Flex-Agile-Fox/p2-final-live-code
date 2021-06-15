@@ -19,10 +19,10 @@ class UserControllers {
     User.findOne({ where: { email } })
       .then((user) => {
         if (user && bcrypt.compareSync(password, user.password)) {
-          const token = jwt.sign({ id: user.id }, JWT_SECRET);
+          const access_token = jwt.sign({ id: user.id }, JWT_SECRET);
           return res
             .status(200)
-            .json({ id: user.id, email: user.email, token: token });
+            .json({ id: user.id, email: user.email, token: access_token });
         }
         throw { name: 'login_fail' };
       })
