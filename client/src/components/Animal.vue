@@ -1,22 +1,25 @@
 <template>
   <div class="card">
     <div class="card-image">
-      <img
-        src="https://a-z-animals.com/media/animals/images/470x370/red_panda5.jpg"
-        alt="card image"
-      />
+      <img :src="animal.imageUrl" alt="card image" />
     </div>
     <div class="card-body">
-      <h3>Red Panda</h3>
-      <p>There are less than 3,000 left in the wild!</p>
+      <h3>{{ animal.name }}</h3>
+      <p>{{ animal.description }}</p>
     </div>
-    <button>Add To Favorites</button>
+    <button @click="addToFavorite(animal.id)">Add To Favorites</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Animal",
+  props: ["animal"],
+  methods: {
+    addToFavorite(id) {
+      this.$store.dispatch("addToFavorite", id);
+    },
+  },
 };
 </script>
 

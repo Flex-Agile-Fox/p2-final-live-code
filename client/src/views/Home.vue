@@ -1,5 +1,11 @@
 <template>
-  <div class="home-container"><Animal></Animal></div>
+  <div class="home-container">
+    <Animal
+      v-for="animal in this.$store.state.animals"
+      :key="animal.id"
+      :animal="animal"
+    ></Animal>
+  </div>
 </template>
 
 <script>
@@ -10,6 +16,9 @@ export default {
   name: "Home",
   components: {
     Animal,
+  },
+  mounted() {
+    this.$store.dispatch("getAnimals");
   },
 };
 </script>

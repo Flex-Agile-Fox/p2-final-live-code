@@ -23,7 +23,7 @@ const routes = [
 		path: "/login",
 		name: "Login",
 		component: Login,
-		meta: { requiresLogin: false },
+		meta: { requiresLogout: true },
 	},
 ];
 
@@ -37,6 +37,15 @@ router.beforeEach((to, from, next) => {
 	if (to.matched.some((record) => record.meta.requiresLogin)) {
 		if (!localStorage.getItem("access_token")) {
 			next({ path: "/login" });
+		} else {
+			next();
+		}
+	} else {
+		next();
+	}
+	if (to.matched.some((record) => record.meta.requiresLogout)) {
+		if (localStorage.getItem("access_token")) {
+			next({ path: "/" });
 		} else {
 			next();
 		}

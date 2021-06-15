@@ -10,7 +10,8 @@
         <h1>Animal Lover</h1>
       </div>
       <div class="nav-center">
-        <router-link href="#">My Favorites</router-link>
+        <router-link to="/">Animals</router-link>
+        <router-link to="/favorites">My Favorites</router-link>
       </div>
       <div class="nav-right">
         <button>Logout</button>
