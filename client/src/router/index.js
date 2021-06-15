@@ -40,7 +40,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.name !== 'Login' && this.$store.state.isLogin === false)
+  if (to.name !== 'Login' && !localStorage.getItem('access_token'))
     next({ name: 'Login' });
   else next();
 });

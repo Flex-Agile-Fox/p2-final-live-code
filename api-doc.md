@@ -1,8 +1,7 @@
 # hacktiv-animalLover-server
 
-​
-List of available endpoints:
-​
+​ List of available endpoints: ​
+
 - `POST /register`
 - `POST /login`
 - `GET /animals`
@@ -26,8 +25,7 @@ Request:
 Response:
 
 - status: 201
-- body:
-  ​
+- body: ​
 
 ```json
 {
@@ -52,21 +50,19 @@ Request:
 Response:
 
 - status: 200
-- body:
-  ​
+- body: ​
 
 ```json
 {
-    "id": "integer",
-    "email": "string",
-    "token": "jwt string"
+  "id": "integer",
+  "email": "string",
+  "token": "jwt string"
 }
 ```
 
 ### GET /animals
 
-description: 
-  get all animals from database
+description: get all animals from database
 
 Request:
 
@@ -92,15 +88,13 @@ Response:
 
 ### POST /favorites/:animalId
 
-description: 
-  add a animal to user favourite
+description: add a animal to user favourite
 
 Request:
 
 - headers: access_token (string)
-- params: 
+- params:
   - animalId: "integer" required
-
 
 Response:
 
@@ -119,8 +113,7 @@ Response:
 
 ### GET /favourites
 
-description: 
-  show current user favourite animals
+description: show current user favourite animals
 
 Request:
 
@@ -148,15 +141,15 @@ Response:
   ]
 }
 ```
+
 ### DELETE /favourites/:id
 
-description: 
-  delete favorite animal
+description: delete favorite animal
 
 Request:
 
 - headers: access_token (string)
-- params: 
+- params:
   - id: "integer" required
 
 Response:

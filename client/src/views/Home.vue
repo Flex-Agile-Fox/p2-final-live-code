@@ -14,5 +14,8 @@ export default {
     Animal,
   },
   methods: {},
+  created() {
+    this.$store.dispatch('fetchAnimals');
+  },
 };
 </script>
