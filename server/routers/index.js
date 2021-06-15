@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const { User, Animal } = require("../models");
+const { User, Animal, Favorite } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const authentication = require("../middlewares/auth");
+const { authentication } = require("../middlewares/auth");
 
 router.get("/", (req, res) => {
 	res.status(200).json("hello");
@@ -35,6 +35,40 @@ router.get("/animals", authentication, (req, res) => {
 	Animal.findAll()
 		.then((animals) => {
 			res.status(200).json({ animals });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json("Internal server error");
+		});
+});
+
+router.post("/favorites/:animalId", authentication, (req, res) => {
+	const { animalId } = req.params;
+	const userId = req.user.id;
+	console.log(animalId, userId);
+	Favorite.create({ animalId, userId })
+		.then((fav) => {
+			res.status(201).json({
+				favorite: {
+					id: fav.id,
+					animalId: fav.animalId,
+					userId: fav.userId,
+				},
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json("Internal server error");
+		});
+});
+
+router.get("/favorites", authentication, (req, res) => {
+	Favorite.findAll({ include: Animal, where: { userId: req.user.id } })
+		.then((favs) => {
+			favs.map((fav) => {
+				return {};
+			});
+			res.status(200).json({ favorites: favs });
 		})
 		.catch((err) => {
 			console.log(err);

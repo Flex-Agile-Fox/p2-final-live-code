@@ -13,6 +13,7 @@ const authentication = (req, res, next) => {
 				if (!user) {
 					res.status(404).json("Invalid email / password");
 				}
+				req.user = user;
 				next();
 			})
 			.catch((err) => {
