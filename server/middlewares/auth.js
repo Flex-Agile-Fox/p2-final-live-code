@@ -4,10 +4,11 @@ const { Favourite } = require('../models')
 
 const authentication = (req, res, next) => {
   if (!req.headers.access_token) return res.status(401).json({message: 'missing token'})
-
   try {
+    // console.log(process.env.JWT_SECRET, req.headers.access_token)
     const decoded = jwt.verify(req.headers.access_token, process.env.JWT_SECRET)
     req.userId = decoded.id
+    console.log(decoded)
     next()
   } catch (err) {
     res.status(401).json({message: err.message})    
