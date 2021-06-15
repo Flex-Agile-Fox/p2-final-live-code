@@ -11,7 +11,7 @@ class UserControllers {
       .then((user) => {
         res.status(201).json({ id: user.id, email: user.email });
       })
-      .catch((err) => next(err));
+      .catch((err) => console.log(err));
   }
   static login(req, res, next) {
     const { email, password } = req.body;
@@ -26,7 +26,7 @@ class UserControllers {
         }
         throw { name: 'login_fail' };
       })
-      .catch((err) => next(err));
+      .catch((err) => console.log(err));
   }
 }
 
