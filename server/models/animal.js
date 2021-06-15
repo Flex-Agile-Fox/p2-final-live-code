@@ -10,14 +10,40 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Animal.hasMany(models.Favorite)
       // define association here
     }
   };
   Animal.init({
-    name: DataTypes.STRING,
-    imageUrl: DataTypes.STRING,
-    description: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Nama Tidak boleh Kosong'
+        }
+      }
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'imageUrl Tidak boleh Kosong'
+        }
+      }
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'description Tidak boleh Kosong'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Animal',

@@ -16,7 +16,7 @@ class FavoriteController {
     static getFavorite (req,res,next) {
         Favorite.findAll()
         .then((favorite) => {
-            res.status(200).json({favorites: favorite})
+            res.status(200).json({favorite})
         }).catch((err) => {
             console.log(err)
             next(err)
@@ -29,7 +29,8 @@ class FavoriteController {
         .then((data) => {
             res.status(200).json({message: 'Successfully delete favorite animal'})
         }).catch((err) => {
-            console.log(err)    
+            console.log(err)
+            next(err)
         });
     }
 }

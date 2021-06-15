@@ -1,4 +1,4 @@
-const {User, Animal} = require('../models')
+const {User, Animal, Favorite} = require('../models')
 const jwt = require('jsonwebtoken')
 
 const authentication = (req, res, next) => {
@@ -45,4 +45,22 @@ const animalAuthor = (req,res,next) => {
     });
 }
 
-module.exports = {authentication, animalAuthor}
+
+const favoriteAuthor = (req,res,next) => {
+    const {id} = req.params
+
+    Favorite.findOne({where:{id}})
+    .then((favorite) => {
+        if(!favorite){
+            throw{name: 'DATA_NOT_FOUND'}
+            console.log('data gaak ada')
+        }else{
+            req.favorite = favorite
+            next()
+        }
+    }).catch((err) => {
+        next(err)
+    });
+}
+
+module.exports = {authentication, animalAuthor, favoriteAuthor}

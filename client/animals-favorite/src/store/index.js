@@ -76,6 +76,21 @@ export default new Vuex.Store({
       })
     }
 
+    // getFavorite (context, payload) {
+    //   axios({
+    //     method: 'GET',
+    //     url: baseURL + '/favourites',
+    //     headers: {
+    //       access_token: localStorage.getItem('access_token')
+    //     }
+    //   }).then(({ data }) => {
+    //     console.log(data.animals)
+    //     context.commit('SET_ANIMALS', data.animals)
+    //   }).catch((err) => {
+    //     console.log(err)
+    //   })
+    // }
+
   },
   modules: {
   }

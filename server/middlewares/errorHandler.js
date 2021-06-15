@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
     switch(err.name){
         case 'SequelizeValidationError':
             errStatus = 400
-            // errMsg = err.errors ? err.errors.
+            errMsg = err.errors ? err.errors.map((e)=> e.message) : []
             break;
         case 'MISSING_ACCESS_TOKEN':
             errStatus = 400

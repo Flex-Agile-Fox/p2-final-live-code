@@ -28,6 +28,9 @@ export default {
   name: 'Favorite',
   components: {
     Navbar
+  },
+  created () {
+    this.$store.dispatch('getFavorite')
   }
 }
 </script>
