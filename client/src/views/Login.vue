@@ -7,17 +7,17 @@
           class="input-form"
           type="email"
           placeholder="your email here"
-          :email="login.email"
+          v-model="login.email"
           required
         />
         <input
           class="input-form"
           type="password"
           placeholder="your password here"
-          :password="login.password"
+          v-model="login.password"
           required
         />
-        <button type="submit">Login</button>
+        <button @click.prevent="goLogin" type="submit">Login</button>
       </form>
     </div>
     <div class="right-login-page">
@@ -37,6 +37,11 @@ export default {
         password: '',
       },
     };
+  },
+  methods: {
+    goLogin() {
+      this.$store.dispatch('goLogin', this.login);
+    },
   },
 };
 </script>
