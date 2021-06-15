@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addConstraint('Favourites',{
-      fields: ['userId'],
+      fields: ['UserId'],
       type: 'foreign key',
       name: 'fk_user',
       references: {
@@ -14,7 +14,7 @@ module.exports = {
       onUpdate: 'cascade'
     })
     await queryInterface.addConstraint('Favourites',{
-      fields: ['animalId'],
+      fields: ['AnimalId'],
       type: 'foreign key',
       name: 'fk_animal',
       references: {

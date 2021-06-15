@@ -8,17 +8,22 @@
       <h1>Animal Lover</h1>
     </div>
     <div class="nav-center">
-      <a href="#">My Favorites</a>
+      <a href="#" @click.prevent="$router.push({ name: 'Favourite' })">My Favorites</a>
     </div>
     <div class="nav-right">
-      <button>Logout</button>
+      <button @click.prevent="logout">Logout</button>
     </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'Navbar'
+  name: 'Navbar',
+  methods: {
+    logout () {
+      this.$store.dispatch('logout')
+    }
+  }
 }
 </script>
 

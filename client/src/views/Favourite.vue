@@ -15,7 +15,7 @@
           <h3>{{ favourite.Animal.name }}</h3>
           <p>{{ favourite.Animal.description }}</p>
         </div>
-        <button class="delete-btn">remove</button>
+        <button class="delete-btn" @click.prevent="deleteFav(favourite.id)">remove</button>
       </div>
     </div>
   </div>
@@ -27,6 +27,11 @@ export default {
   computed: {
     favourites () {
       return this.$store.state.favourites
+    }
+  },
+  methods: {
+    deleteFav (id) {
+      this.$store.dispatch('deleteFavourite', id)
     }
   },
   created () {

@@ -18,7 +18,10 @@ class FavouriteController {
       animalId: req.params.animalId
     }
     console.log(fav)
-    Favourite.create(fav)
+    Favourite.create({
+      UserId: req.userId,
+      AnimalId: req.params.animalId
+    })
       .then((favourite) => {
         res.status(201).json({favourite: favourite})
       })

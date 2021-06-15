@@ -74,9 +74,6 @@ export default new Vuex.Store({
         url: `favourites/${payload}`,
         headers: {
           access_token: localStorage.getItem('access_token')
-        },
-        data: {
-          animalId: payload
         }
       })
         .then(({ data }) => {
@@ -85,6 +82,25 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err.response)
         })
+    },
+    deleteFavourite (context, payload) {
+      axios({
+        method: 'DELETE',
+        url: `favourites/${payload}`,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        }
+      })
+        .then(() => {
+          context.dispatch('fetchFavourites')
+        })
+        .catch((err) => {
+          console.log(err.response)
+        })
+    },
+    logout () {
+      localStorage.clear()
+      router.push({ name: 'Login' })
     }
   },
   modules: {
