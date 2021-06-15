@@ -22,7 +22,13 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id',
         },
       },
-      animalId: DataTypes.INTEGER,
+      animalId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: 'Animals',
+          key: 'id',
+        },
+      },
     },
     {
       sequelize,
