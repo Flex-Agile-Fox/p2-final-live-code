@@ -4,13 +4,13 @@ class FavoriteController {
     static addFavorite (req,res,next) {
         const {animalId} = req.params
         const {userId} = req.body
-        // Favorite.create({userId, animalId})
-        // .then((favorit) => {
-        //     console.log(favorit)
-        // }).catch((err) => {
-        //     console.log(err)
-        //     next(err)
-        // });
+        Favorite.create({userId, animalId})
+        .then((favorit) => {
+            console.log(favorit)
+        }).catch((err) => {
+            console.log(err)
+            next(err)
+        });
     }
 
     static getFavorite (req,res,next) {

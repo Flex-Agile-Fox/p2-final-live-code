@@ -22,7 +22,8 @@ class UserController {
                 const access_token = jwt.sign({id:user.id}, process.env.JWT_SECREAT)
                 res.status(200).json({id:user.id, email:user.email, token:access_token})
             }else{
-                console.log('data ga ada')
+                // console.log('data ga ada')
+                throw{name: 'LOGIN_FAIL'}
             }
             // res.status(201).json({id:user.id, email:user.email })
         }).catch((err) => {

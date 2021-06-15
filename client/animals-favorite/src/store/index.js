@@ -61,7 +61,7 @@ export default new Vuex.Store({
       console.log(UserId, payload)
       axios({
         method: 'POST',
-        url: baseURL + '/favourites/' + payload ,
+        url: baseURL + '/favourites/' + payload,
         headers: {
           access_token: localStorage.getItem('access_token')
         },
