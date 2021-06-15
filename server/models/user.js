@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			User.hasMany(models.Favorite, {
 				foreignKey: {
-					name: "userId",
+					name: "id",
 					allowNull: false,
 				},
 			});

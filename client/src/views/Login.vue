@@ -23,7 +23,7 @@
     </div>
     <div class="right-login-page">
       <h1>Welcome to Animal Lovers</h1>
-      <!-- <img src="../../assets/login.png" alt="login image" /> -->
+      <img src="@/assets/login.png" alt="login image" />
     </div>
   </div>
 </template>

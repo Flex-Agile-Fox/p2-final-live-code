@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import router from "../router";
+import Toastify from "toastify-js";
 Vue.use(Vuex);
 
 axios.defaults.baseURL = "http://localhost:3000";
@@ -34,6 +35,11 @@ export default new Vuex.Store({
 		logout(context) {
 			localStorage.removeItem("access_token");
 			context.dispatch("isLoggedIn");
+			router.push({ name: "Login" });
+			Toastify({
+				text: "Succesfully logout",
+				className: "info",
+			}).showToast();
 		},
 		login(context, { email, password }) {
 			axios({
@@ -48,11 +54,19 @@ export default new Vuex.Store({
 				},
 			})
 				.then((data) => {
+					Toastify({
+						text: "Succesfully login",
+						className: "info",
+					}).showToast();
 					localStorage.setItem("access_token", data.data.token);
 					context.dispatch("isLoggedIn");
 					router.push({ name: "Home" });
 				})
 				.catch((err) => {
+					Toastify({
+						text: err,
+						className: "warning",
+					}).showToast();
 					console.log(err);
 				});
 		},
@@ -84,9 +98,17 @@ export default new Vuex.Store({
 			})
 				.then(() => {
 					context.dispatch("getFavorites");
+					Toastify({
+						text: "Succesfully added to favorite",
+						className: "info",
+					}).showToast();
 				})
 				.catch((err) => {
 					console.log(err);
+					Toastify({
+						text: err,
+						className: "warning",
+					}).showToast();
 				});
 		},
 		getFavorites(context) {
@@ -104,6 +126,10 @@ export default new Vuex.Store({
 				})
 				.catch((err) => {
 					console.log(err);
+					Toastify({
+						text: err,
+						className: "warning",
+					}).showToast();
 				});
 		},
 		deleteFavorite(context, payload) {
@@ -118,8 +144,16 @@ export default new Vuex.Store({
 			})
 				.then(() => {
 					context.dispatch("getFavorites");
+					Toastify({
+						text: "Succesfully deleted favorite",
+						className: "info",
+					}).showToast();
 				})
 				.catch((err) => {
+					Toastify({
+						text: err,
+						className: "warning",
+					}).showToast();
 					console.log(err);
 				});
 		},

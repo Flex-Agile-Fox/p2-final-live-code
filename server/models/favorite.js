@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			Favorite.belongsTo(models.User, {
 				foreignKey: {
-					name: "id",
+					name: "userId",
 					allowNull: false,
 				},
 			});
 			Favorite.belongsTo(models.Animal, {
 				foreignKey: {
-					name: "id",
+					name: "animalId",
 					allowNull: false,
 				},
 			});

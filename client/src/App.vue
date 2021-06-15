@@ -14,7 +14,7 @@
         <router-link to="/favorites">My Favorites</router-link>
       </div>
       <div class="nav-right">
-        <button>Logout</button>
+        <button @click="logout">Logout</button>
       </div>
     </nav>
     <router-view />
@@ -22,6 +22,11 @@
 </template>
 <script>
 export default {
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
   mounted() {
     this.$store.dispatch("isLoggedIn");
   },

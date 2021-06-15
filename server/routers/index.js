@@ -35,6 +35,14 @@ router.post("/login", (req, res) => {
 router.get("/animals", authentication, (req, res) => {
 	Animal.findAll()
 		.then((animals) => {
+			animals = animals.map((a) => {
+				return {
+					id: a.id,
+					imageUrl: a.imageUrl,
+					name: a.name,
+					description: a.description,
+				};
+			});
 			res.status(200).json({ animals });
 		})
 		.catch((err) => {
@@ -47,13 +55,13 @@ router.post("/favorites/:animalId", authentication, (req, res) => {
 	const { animalId } = req.params;
 	const userId = req.user.id;
 	console.log(animalId, userId);
-	Favorite.create({ animalId, userId })
+	Favorite.create({ userId: userId, animalId: animalId })
 		.then((fav) => {
 			res.status(201).json({
 				favorite: {
 					id: fav.id,
-					animalId: fav.animalId,
-					userId: fav.userId,
+					animalId: +fav.animalId,
+					userId: +fav.userId,
 				},
 			});
 		})

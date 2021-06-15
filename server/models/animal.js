@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			Animal.hasMany(models.Favorite, {
 				foreignKey: {
-					name: "animalId",
+					name: "id",
 					allowNull: false,
 				},
 			});
