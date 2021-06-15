@@ -29,6 +29,7 @@ export default new Vuex.Store({
       }).then(({ data }) => {
         console.log(data.token)
         localStorage.setItem('access_token', data.token)
+        localStorage.setItem('UserId', data.id)
         router.push({ path: '/' })
       }).catch((err) => {
         console.log(err)
@@ -50,6 +51,26 @@ export default new Vuex.Store({
       }).then(({ data }) => {
         console.log(data.animals)
         context.commit('SET_ANIMALS', data.animals)
+      }).catch((err) => {
+        console.log(err)
+      })
+    },
+
+    addToFavorite (context, payload) {
+      const UserId = localStorage.getItem('UserId')
+      console.log(UserId, payload)
+      axios({
+        method: 'POST',
+        url: baseURL + '/favourites/' + payload ,
+        headers: {
+          access_token: localStorage.getItem('access_token')
+        },
+        data: {
+          userId: UserId,
+          animalId: payload
+        }
+      }).then(({ data }) => {
+        console.log(data)
       }).catch((err) => {
         console.log(err)
       })

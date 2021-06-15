@@ -10,14 +10,19 @@
           <h3>{{animal.name}}</h3>
           <p>{{animal.description}}</p>
         </div>
-        <button>Add To Favorites</button>
+        <button v-on:click="addToFavorite(animal.id)">Add To Favorites</button>
      </div>
 </template>
 
 <script>
 export default {
   name: 'ListAnimals',
-  props: ['animal']
+  props: ['animal'],
+  methods: {
+    addToFavorite (id) {
+      this.$store.dispatch('addToFavorite', id)
+    }
+  }
 }
 </script>
 
