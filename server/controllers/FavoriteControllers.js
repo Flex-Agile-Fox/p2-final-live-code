@@ -1,4 +1,4 @@
-const { Animal, Favorite } = require('../models');
+const { Animal, Favorite, User } = require('../models');
 
 class FavoriteControllers {
   static addFavorite(req, res, next) {
@@ -10,13 +10,35 @@ class FavoriteControllers {
         if (!animal) throw { name: 'animal_not_found' };
         return Favorite.create({ animalId, userId });
       })
-      .then((favorite) => {
-        res.status(201).json({ favorite: favorite });
+      .then((animal) => {
+        res.status(201).json({ favorite: animal });
       })
       .catch((err) => console.log(err));
   }
-  static getFavorites(req, res, next) {}
-  static deleteFavorite(req, res, next) {}
+  static getFavorites(req, res, next) {
+    const { userId } = req;
+
+    Favorite.findAll({ where: { userId }, include: [Animal] })
+      .then((favorites) => {
+        res.status(200).json({ favorites: favorites });
+      })
+      .catch((err) => console.log(err));
+  }
+  static deleteFavorite(req, res, next) {
+    const { id } = req.params;
+
+    Favorite.findOne({ where: { id } })
+      .then((favorite) => {
+        if (!favorite) throw { name: 'favorite_not_found' };
+        return favorite.destroy();
+      })
+      .then(() => {
+        res
+          .status(200)
+          .json({ message: 'Successfully delete favorite animal' });
+      })
+      .catch((err) => console.log(err));
+  }
 }
 
 module.exports = FavoriteControllers;
